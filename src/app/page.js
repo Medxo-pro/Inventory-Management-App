@@ -128,6 +128,12 @@ export default function Home() {
     }
   };
 
+  const handleCameraCapture = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
+
   const handleAddItem = async () => {
     console.log('handleAddItem called'); // Debugging log
     try {
@@ -322,18 +328,32 @@ export default function Home() {
               onChange={(e) => setCategory(e.target.value)}
             />
             <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="raised-button-file"
-              type="file"
-              onChange={handleImageChange}
-            />
-            <label htmlFor="raised-button-file">
-              <IconButton color="primary" aria-label="upload picture" component="span">
-                <PhotoCamera />
-              </IconButton>
-              {image && <Typography>{image.name}</Typography>}
-            </label>
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="upload-button-file"
+                type="file"
+                onChange={handleImageChange}
+              />
+              <label htmlFor="upload-button-file">
+                <Button variant="contained" component="span">
+                  Upload Image
+                </Button>
+              </label>
+
+              {/* Button to capture from camera */}
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="camera-button-file"
+                type="file"
+                capture="environment" // Use "user" for front camera
+                onChange={handleCameraCapture}
+              />
+              <label htmlFor="camera-button-file">
+                <IconButton color="primary" aria-label="capture picture" component="span">
+                  <PhotoCamera />
+                </IconButton>
+              </label>
             <Button
               variant="outlined"
               onClick={handleAddItem}
