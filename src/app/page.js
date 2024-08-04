@@ -83,6 +83,9 @@ export default function Home() {
         await setDoc(docRef, { quantity, category, imageUrl });
       }
       await updateInventory();
+      setItemName('');
+      setQuantity(1);
+      setCategory('');
     } catch (error) {
       console.error('Error adding item:', error);
     }
